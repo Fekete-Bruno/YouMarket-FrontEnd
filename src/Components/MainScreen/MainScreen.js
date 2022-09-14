@@ -1,10 +1,11 @@
 
 import styled from "styled-components";
+import ProductCard from "../ProductCard/ProductCard";
 
-export default function MainScreen(){
+export default function MainScreen({products}){
     return(
         <MainScreenWrapper>
-            MainScreen 
+            {products.map((product)=>{return(<ProductCard product={product}/>);})}
         </MainScreenWrapper>
     );
 }
