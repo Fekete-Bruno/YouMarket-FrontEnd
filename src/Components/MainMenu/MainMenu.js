@@ -19,9 +19,9 @@ const MenuWrapper = styled.div`
     position: fixed;
     bottom: 0;
     left: 0;
-    height: 10vh;
+    height: 8vh;
     width: 100%;
     background-color: rgb(47, 62, 70);
-    font-size: 5vh;
+    font-size: 4vh;
     color: rgb(202, 210, 197);
 `;
