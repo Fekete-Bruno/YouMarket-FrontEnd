@@ -1,5 +1,5 @@
 import axios from "axios";
-
+//BASE_URL should end with "/"
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function getProducts() {
