@@ -6,7 +6,7 @@ export default function MainScreen({products}){
     return(
         <MainScreenWrapper>
             <ProductsWrapper>
-                {products.map((product)=>{return(<ProductCard product={product}/>);})}
+                {products.map((product,index)=>{return(<ProductCard product={product} key={index}/>);})}
             </ProductsWrapper>
         </MainScreenWrapper>
     );
