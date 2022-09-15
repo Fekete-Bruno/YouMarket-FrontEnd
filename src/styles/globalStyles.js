@@ -62,7 +62,10 @@ select {
 }
 
 a{
-    text-decoration: none;
+ 
+  color: inherit;
+  text-decoration: inherit;
+
 }
 
 ion-icon:hover{
@@ -99,4 +102,4 @@ input[type=number] {
 
 `;
 
-export {GlobalStyle};
+export { GlobalStyle };

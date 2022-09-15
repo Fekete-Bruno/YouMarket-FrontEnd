@@ -2,14 +2,19 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-function getProducts(){
-    const promise = axios.get(`${BASE_URL}/`);
-    return promise;
+function getProducts() {
+  const promise = axios.get(`${BASE_URL}`);
+  return promise;
 }
 
-function handleError(err){
-    console.error(err);
-    alert(err.message);
+function handleError(err) {
+  console.error(err);
+  alert(err.message);
 }
 
-export {getProducts,handleError};
+function signUp(body) {
+  const promise = axios.post(`${BASE_URL}sign-up`, body);
+  return promise;
+}
+
+export { getProducts, handleError, signUp };
