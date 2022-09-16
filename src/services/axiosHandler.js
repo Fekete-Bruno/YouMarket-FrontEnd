@@ -27,4 +27,4 @@ function getProductById(productId){
   return promise;
 }
 
-export { getProducts, handleError, login, signUp };
+export { getProducts, handleError, login, signUp, getProductById };
