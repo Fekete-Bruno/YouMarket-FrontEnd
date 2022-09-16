@@ -12,9 +12,14 @@ function handleError(err) {
   alert(err.message);
 }
 
+function login(body) {
+  const promise = axios.post(`${BASE_URL}sign-in`, body);
+  return promise;
+}
+
 function signUp(body) {
   const promise = axios.post(`${BASE_URL}sign-up`, body);
   return promise;
 }
 
-export { getProducts, handleError, signUp };
+export { getProducts, handleError, login, signUp };
