@@ -24,6 +24,7 @@ export default function SignUpPage() {
   function sendSignUp(e) {
     e.preventDefault();
     if (form.password === form.confirm_password) {
+      delete form.confirm_password;
       const promise = signUp(form);
       promise.then((res) => {
         console.log("FOI", res);

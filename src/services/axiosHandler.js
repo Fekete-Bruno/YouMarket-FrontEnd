@@ -22,4 +22,9 @@ function signUp(body) {
   return promise;
 }
 
-export { getProducts, handleError, login, signUp };
+function getProductById(productId){
+  const promise = axios.get(BASE_URL+productId);
+  return promise;
+}
+
+export { getProducts, handleError, login, signUp, getProductById };
