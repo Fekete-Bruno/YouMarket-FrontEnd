@@ -1,13 +1,19 @@
 import Title from "../Title/Title.js";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { login } from "../../services/axiosHandler.js";
+import UserContext from "../Context/UserContext.js";
+import LoginContext from "../Context/LoginContext.js";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+  const { setToken } = useContext(LoginContext);
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   function handleForm(e) {
     setForm({
@@ -16,11 +22,28 @@ export default function LoginPage() {
     });
     console.log(form);
   }
+
+  function sendLogin(e) {
+    e.preventDefault();
+    const promise = login(form);
+    promise
+      .then((res) => {
+        setUser(res.data.user);
+        setToken(res.data.token);
+        console.log(res.data.user);
+        console.log(res.data.token);
+        navigate("/");
+      })
+      .catch((res) => {
+        alert("Algo está errado, verifique suas informações!");
+      });
+  }
+
   return (
     <>
       <Title />
       <LoginScreenWrapper>
-        <form onSubmit={() => {}}>
+        <form onSubmit={sendLogin}>
           <FormWrapper>
             <Info
               type="email"
