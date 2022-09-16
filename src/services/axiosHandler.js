@@ -12,4 +12,9 @@ function handleError(err){
     alert(err.message);
 }
 
-export {getProducts,handleError};
+function getProductById(productId){
+    const promise = axios.get(BASE_URL+productId);
+    return promise;
+}
+
+export {getProducts, handleError, getProductById};
