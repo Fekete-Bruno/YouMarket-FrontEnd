@@ -14,7 +14,7 @@ export default function ProductPage(){
         const request = getProductById(productId);
         request.then((response)=>setProduct(response.data)).catch((error)=>handleError(error));
     }
-    ,[]);
+    ,[productId]);
 
     return(
         <>
@@ -25,6 +25,8 @@ export default function ProductPage(){
             <h2>Price: $ {product.price}</h2>
             <h3>Quantity: {product.amount}</h3>
             <p>{product.description}</p>
+
+            <CartButton>+ Add to Cart</CartButton>
         </ProductWrapper>
         <MainMenu />
         </>
@@ -35,13 +37,30 @@ const ProductWrapper = styled.div`
     margin: 8vh 0;
     min-height: 84vh;
     background-color: rgb(202, 210, 197);
+    color: rgb(47, 62, 70);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-align: center;
     img{
         height: 50vh;
         width: 50vh;
         object-fit: cover;
+    }
+`;
+
+const CartButton = styled.div`
+    margin-top: 1vh;
+    padding:2vw;
+    border-radius: 6px;
+    background-color: rgb(47, 62, 70);
+    color: rgb(202, 210, 197);
+    &:hover{
+        cursor: pointer;
+        background-color: rgba(47, 62, 70,0.8);
+    }
+    &:active{
+        transform: translateY(3px);
     }
 `;
