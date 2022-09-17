@@ -28,10 +28,10 @@ export default function LoginPage() {
     const promise = login(form);
     promise
       .then((res) => {
-        setUser(res.data.user);
-        setToken(res.data.token);
-        console.log(res.data.user);
-        console.log(res.data.token);
+        const {user,token} = res.data;
+        setUser(user);
+        setToken(token);
+        localStorage.setItem("youmarket",JSON.stringify({user,token}));
         navigate("/");
       })
       .catch((res) => {
@@ -77,8 +77,10 @@ export default function LoginPage() {
 
 const LoginScreenWrapper = styled.div`
   background-color: rgb(202, 210, 197);
-  margin-top: 8vh;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const FormWrapper = styled.div`
