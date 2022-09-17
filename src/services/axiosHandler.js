@@ -1,6 +1,20 @@
 import axios from "axios";
+import { useContext } from "react";
+import LoginContext from "../Components/Context/LoginContext";
 //BASE_URL should end with "/"
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+function getHeaders() {
+  const {token} = JSON.parse(localStorage.getItem("youmarket"));
+  if(token){
+      const config = {
+          headers: {
+          Authorization: `Bearer ${token}`
+          }
+      };
+    return config;
+  }
+}
 
 function getProducts() {
   const promise = axios.get(`${BASE_URL}`);
@@ -27,4 +41,10 @@ function getProductById(productId){
   return promise;
 }
 
-export { getProducts, handleError, login, signUp, getProductById };
+function getCart(){
+  const config = getHeaders();
+  const promise = axios.get(`${BASE_URL}cart`,config);
+  return promise;
+}
+
+export { getProducts, handleError, login, signUp, getProductById, getCart };

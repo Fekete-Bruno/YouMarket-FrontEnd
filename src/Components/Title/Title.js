@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Title(){
+    const navigate = useNavigate();
     return(
-        <TitleWrapper>
+        <TitleWrapper onClick={()=>navigate("/")}>
             YouMarket
         </TitleWrapper>
     );
@@ -20,4 +22,8 @@ const TitleWrapper = styled.div`
     background-color: rgb(47, 62, 70);
     font-size: 4vh;
     color: rgb(202, 210, 197);
+    &:hover{
+        cursor: pointer;
+        background-color: rgba(57, 72, 80,1);
+    }
 `;

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -16,6 +17,10 @@ export default function ProductPage(){
     }
     ,[productId]);
 
+    function addToCart (){
+        console.log(product);
+    }
+
     return(
         <>
         <Title />
@@ -26,7 +31,7 @@ export default function ProductPage(){
             <h3>Quantity: {product.amount}</h3>
             <p>{product.description}</p>
 
-            <CartButton>+ Add to Cart</CartButton>
+            <CartButton onClick={addToCart}>+ Add to Cart</CartButton>
         </ProductWrapper>
         <MainMenu />
         </>

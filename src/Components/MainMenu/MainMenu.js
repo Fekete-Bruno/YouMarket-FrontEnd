@@ -1,14 +1,43 @@
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import LoginContext from "../Context/LoginContext";
+import UserContext from "../Context/UserContext";
+import LowerBar from "../LowerBar/LowerBar";
 
 export default function MainMenu(){
-    return(
-        <MenuWrapper>
-            <ion-icon name="reorder-three-sharp"></ion-icon>
-            
-            <ion-icon name="person-circle-sharp"></ion-icon>
+    const [selected,setSelected] = useState (false);
+    const navigate = useNavigate();
+    const {token} = useContext(LoginContext);
+    const {user} = useContext(UserContext);
 
-            <ion-icon name="cart-sharp"></ion-icon>
-        </MenuWrapper>
+    function handleLogin(){
+        if(!token){
+            navigate("/login");
+        }else{
+            alert("Soon you will be able to access your profile and orders!");
+        }
+    }
+
+    function handleCart (){
+        if(!token){
+            alert("Please log-in before accessing the cart!")
+        } else {
+            navigate(`/cart`);
+        }
+    }
+
+    return(
+        <>
+            <LowerBar selected={selected}/>
+            <MenuWrapper>
+                <ion-icon name="person-circle-sharp" onClick={handleLogin}></ion-icon>
+
+                <ion-icon name="reorder-three-sharp" onClick={()=>{setSelected(!selected)}}></ion-icon>
+
+                <ion-icon name="cart-sharp" onClick={handleCart}></ion-icon>
+            </MenuWrapper>
+        </>
     );
 }
 

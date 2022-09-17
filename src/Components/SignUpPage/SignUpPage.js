@@ -18,7 +18,6 @@ export default function SignUpPage() {
       ...form,
       [e.target.name]: e.target.value,
     });
-    console.log(form);
   }
 
   function sendSignUp(e) {
@@ -91,8 +90,10 @@ export default function SignUpPage() {
 
 const SignupScreenWrapper = styled.div`
   background-color: rgb(202, 210, 197);
-  margin-top: 8vh;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const FormWrapper = styled.div`

@@ -9,10 +9,17 @@ import FinalizeOrderPage from "./Checkout/FinalizeOrderPage";
 import UserContext from "./Context/UserContext";
 import LoginContext from "./Context/LoginContext";
 import { useState } from "react";
+import Cart from "./Cart/Cart";
 
 export default function App() {
-  const [token, setToken] = useState("");
-  const [user, setUser] = useState({});
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
+  const localData = JSON.parse(localStorage.getItem("youmarket"));
+
+  if(localData && !token && !user){
+    setToken(localData.token);
+    setUser(localData.user);
+  }
 
   return (
     <BrowserRouter>
@@ -21,11 +28,12 @@ export default function App() {
         <UserContext.Provider value={{ user, setUser }}>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/:productId" element={<ProductPage />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/finalize-order" element={<FinalizeOrderPage />} />
             <Route path="/checkout:productId" element={<CheckoutPage />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </UserContext.Provider>
       </LoginContext.Provider>
