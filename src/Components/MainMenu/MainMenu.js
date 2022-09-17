@@ -6,9 +6,9 @@ export default function MainMenu(){
 
     return(
         <>
-            <Sidebar selected={selected}>
+            <Lowerbar selected={selected}>
             <h1>New features soon!</h1>
-            </Sidebar>
+            </Lowerbar>
             <MenuWrapper>
                 <ion-icon name="person-circle-sharp"></ion-icon>
 
@@ -19,7 +19,7 @@ export default function MainMenu(){
         </>
     );
 }
-const Sidebar = styled.div`
+const Lowerbar = styled.div`
     position: fixed;
     left: 0;
     bottom: 8vh;
