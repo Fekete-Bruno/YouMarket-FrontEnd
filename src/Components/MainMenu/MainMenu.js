@@ -1,35 +1,45 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import LoginContext from "../Context/LoginContext";
+import UserContext from "../Context/UserContext";
+import LowerBar from "../LowerBar/LowerBar";
 
 export default function MainMenu(){
     const [selected,setSelected] = useState (false);
+    const navigate = useNavigate();
+    const {token} = useContext(LoginContext);
+    const {user} = useContext(UserContext);
+
+    function handleLogin(){
+        if(!token){
+            navigate("/login");
+        }else{
+            alert("Soon you will be able to access your profile and orders!");
+        }
+    }
+
+    function handleCart (){
+        if(!token){
+            alert("Please log-in before accessing the cart!")
+        } else {
+            navigate(`/cart`);
+        }
+    }
 
     return(
         <>
-            <Lowerbar selected={selected}>
-            <h1>New features soon!</h1>
-            </Lowerbar>
+            <LowerBar selected={selected}/>
             <MenuWrapper>
-                <ion-icon name="person-circle-sharp"></ion-icon>
+                <ion-icon name="person-circle-sharp" onClick={handleLogin}></ion-icon>
 
-                <ion-icon name="reorder-three-sharp" onClick={()=>setSelected(!selected)}></ion-icon>
+                <ion-icon name="reorder-three-sharp" onClick={()=>{setSelected(!selected)}}></ion-icon>
 
-                <ion-icon name="cart-sharp"></ion-icon>
+                <ion-icon name="cart-sharp" onClick={handleCart}></ion-icon>
             </MenuWrapper>
         </>
     );
 }
-const Lowerbar = styled.div`
-    position: fixed;
-    left: 0;
-    bottom: 8vh;
-    text-align: center;
-    height: ${(props)=>props.selected?"0":"22vh"};
-    width: 100vw;
-    background-color: rgba(47, 62, 70,0.95);
-    color: rgb(202, 210, 197);
-    transition: all 500ms;
-`;
 
 const MenuWrapper = styled.div`
     display: flex;

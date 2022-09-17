@@ -18,7 +18,6 @@ export default function SignUpPage() {
       ...form,
       [e.target.name]: e.target.value,
     });
-    console.log(form);
   }
 
   function sendSignUp(e) {

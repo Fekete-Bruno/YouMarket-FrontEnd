@@ -24,6 +24,6 @@ const TitleWrapper = styled.div`
     color: rgb(202, 210, 197);
     &:hover{
         cursor: pointer;
-        background-color: rgba(47, 62, 70,0.9);
+        background-color: rgba(57, 72, 80,1);
     }
 `;

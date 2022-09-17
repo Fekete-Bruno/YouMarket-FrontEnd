@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function ProductCard({product}){
     const navigate = useNavigate();
     return(
-        <ProductCardWrapper onClick={()=>navigate(`/${product._id}`)}>
+        <ProductCardWrapper onClick={()=>navigate(`/product/${product._id}`)}>
         {product.title}
         <img src={product.image} alt={product.title} />
         $ {product.price}

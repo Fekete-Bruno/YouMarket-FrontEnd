@@ -20,7 +20,6 @@ export default function LoginPage() {
       ...form,
       [e.target.name]: e.target.value,
     });
-    console.log(form);
   }
 
   function sendLogin(e) {
