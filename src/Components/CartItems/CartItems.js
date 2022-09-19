@@ -1,10 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function CartItems({products}){
+    const navigate = useNavigate();
     return(
         products.map((product,index)=>{return(
         <div key={index}>
-            <Item>
+            <Item onClick={()=>{navigate('/product/'+product._id)}}>
                 <img src={product.image} alt={product.title} />
                 <span>{product.title}</span>
                 <span>{product.price}</span>

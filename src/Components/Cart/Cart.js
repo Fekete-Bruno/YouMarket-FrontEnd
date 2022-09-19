@@ -27,7 +27,7 @@ export default function Cart(){
         console.log(arr);
         setProducts([...arr]);
         items.map((item)=>sum+=Number(item.product.price));
-        setTotal(sum);
+        setTotal(sum.toFixed(2));
     },[items])
 
     return(
