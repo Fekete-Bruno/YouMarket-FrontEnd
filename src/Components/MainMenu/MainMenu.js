@@ -2,14 +2,12 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LoginContext from "../Context/LoginContext";
-import UserContext from "../Context/UserContext";
 import LowerBar from "../LowerBar/LowerBar";
 
 export default function MainMenu(){
     const [selected,setSelected] = useState (false);
     const navigate = useNavigate();
     const {token} = useContext(LoginContext);
-    const {user} = useContext(UserContext);
 
     function handleLogin(){
         if(!token){

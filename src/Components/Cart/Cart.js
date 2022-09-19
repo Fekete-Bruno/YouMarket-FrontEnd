@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getCart, handleError } from "../../services/axiosHandler";
 import CartItems from "../CartItems/CartItems";
@@ -9,17 +10,25 @@ import Unauthorized from "../Unauthorized/Unauthorized";
 
 export default function Cart(){
     const [items,setItems] = useState([]);
-    const mockItems = [{ _id: "63227435ead4582bb0785d5f", selected:"1", amount: "5", price: "89.99", image: "https://mckups.com/wp-content/uploads/2020/10/Book1-scaled.jpg", title: "The gravity of Us big sale", category: "books", description: "NICE BOOK, FOUND IT IN AN ALLEY!!" },
-    { _id: "63227435ead4582bb0785d5f", selected:"1", amount: "5", price: "89.99", image: "https://mckups.com/wp-content/uploads/2020/10/Book1-scaled.jpg", title: "The gravity of Us big sale", category: "books", description: "NICE BOOK, FOUND IT IN AN ALLEY!!" },
-    { _id: "63227435ead4582bb0785d5f", selected:"1", amount: "5", price: "89.99", image: "https://mckups.com/wp-content/uploads/2020/10/Book1-scaled.jpg", title: "The gravity of Us big sale", category: "books", description: "NICE BOOK, FOUND IT IN AN ALLEY!!" },
-    { _id: "63227435ead4582bb0785d5f", selected:"1", amount: "5", price: "89.99", image: "https://mckups.com/wp-content/uploads/2020/10/Book1-scaled.jpg", title: "The gravity of Us big sale", category: "books", description: "NICE BOOK, FOUND IT IN AN ALLEY!!" },]
+    const [total,setTotal] = useState(0);
     const {user} = useContext(UserContext);
-    console.log(user._id);
-
+    const [products,setProducts] = useState([]);
+    const navigate = useNavigate();
     useEffect(()=>{
         const request = getCart();
-        request.then((res)=>setItems(res.data)).catch((error)=>handleError(error));
+        request.then((res)=>setItems(res.data)).catch((error)=>handleError(error));        
     },[])
+
+    useEffect(()=>{
+        let sum = 0;
+        let arr = [];
+        items.map((item)=>arr.push(item.product));
+        arr.map((product)=>product.selected="1");
+        console.log(arr);
+        setProducts([...arr]);
+        items.map((item)=>sum+=Number(item.product.price));
+        setTotal(sum.toFixed(2));
+    },[items])
 
     return(
         <>
@@ -30,8 +39,18 @@ export default function Cart(){
                 <MainMenu />
                 <CartWrapper>
                     <h1>Hello {user.name}</h1>
-                    <h2>Your Cart</h2>
-                    <CartItems items={mockItems} />
+                    {
+                        items.length===0?
+                        <h2>Your cart is empty, add something nice to buy!</h2>:
+                        <>
+                            <h2>Your Cart</h2>
+                            <CartItems products={products}/>
+                            <h3>Total: {total}</h3>
+                            <h3 onClick={()=>navigate("/finalize-order")}>Checkout</h3>
+                        </>
+                    
+                    
+                    }
                 </CartWrapper>
             </>:
 
@@ -50,5 +69,7 @@ const CartWrapper = styled.div`
     flex-direction: column;
     text-align: center;
     align-items: center;
-    
+    h3{
+        margin: 1vh;
+    }
 `;
