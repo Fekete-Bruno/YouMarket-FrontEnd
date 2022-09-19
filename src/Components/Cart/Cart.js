@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getCart, handleError } from "../../services/axiosHandler";
 import CartItems from "../CartItems/CartItems";
@@ -12,6 +13,7 @@ export default function Cart(){
     const [total,setTotal] = useState(0);
     const {user} = useContext(UserContext);
     const [products,setProducts] = useState([]);
+    const navigate = useNavigate();
     useEffect(()=>{
         const request = getCart();
         request.then((res)=>setItems(res.data)).catch((error)=>handleError(error));        
@@ -44,7 +46,7 @@ export default function Cart(){
                             <h2>Your Cart</h2>
                             <CartItems products={products}/>
                             <h3>Total: {total}</h3>
-                            <h3 onClick={console.log('checkout')}>Checkout</h3>
+                            <h3 onClick={()=>navigate("/finalize-order")}>Checkout</h3>
                         </>
                     
                     
