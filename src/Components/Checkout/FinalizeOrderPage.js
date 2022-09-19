@@ -1,9 +1,15 @@
 import Title from "../Title/Title.js";
 import styled from "styled-components";
 import MainMenu from "../MainMenu/MainMenu.js";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { postOrder } from "../../services/axiosHandler.js";
+import UserContext from "../Context/UserContext";
+import Unauthorized from "../Unauthorized/Unauthorized";
+import { useNavigate } from "react-router-dom";
 
 export default function FinalizeOrderPage() {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     address: "",
     number: "",
@@ -23,84 +29,101 @@ export default function FinalizeOrderPage() {
     console.log(form);
   }
 
+  function sendOrder(e) {
+    e.preventDefault();
+    const promise = postOrder(form);
+    promise
+      .then((res) => {
+        navigate("/checkout");
+      })
+      .catch((res) => {
+        alert("Algo está errado, verifique suas informações!");
+      });
+  }
+
   return (
     <>
       <Title />
       <CheckoutScreenWrapper>
         <Content>
           <Title />
+          {user ? (
+            <>
+              <form onSubmit={sendOrder}>
+                <FormWrapper>
+                  <span>Dados para entrega</span>
+                  <Info
+                    type="text"
+                    placeholder="Endereço"
+                    name="address"
+                    onChange={handleForm}
+                    value={form.address}
+                    required
+                  />
+                  <Info
+                    type="text"
+                    placeholder="Número"
+                    name="number"
+                    onChange={handleForm}
+                    value={form.number}
+                    required
+                  />
+                  <Info
+                    type="text"
+                    placeholder="CEP"
+                    name="cep"
+                    onChange={handleForm}
+                    value={form.cep}
+                    required
+                  />
 
-          <form onSubmit={() => {}}>
-            <FormWrapper>
-              <span>Dados para entrega</span>
-              <Info
-                type="text"
-                placeholder="Endereço"
-                name="address"
-                onChange={handleForm}
-                value={form.address}
-                required
-              />
-              <Info
-                type="text"
-                placeholder="Número"
-                name="number"
-                onChange={handleForm}
-                value={form.number}
-                required
-              />
-              <Info
-                type="text"
-                placeholder="CEP"
-                name="cep"
-                onChange={handleForm}
-                value={form.cep}
-                required
-              />
+                  <Info
+                    type="text"
+                    placeholder="Cidade"
+                    name="city"
+                    onChange={handleForm}
+                    value={form.city}
+                    required
+                  />
+                  <Info
+                    type="text"
+                    placeholder="Estado"
+                    name="state"
+                    onChange={handleForm}
+                    value={form.state}
+                    required
+                  />
+                </FormWrapper>
+                <FormWrapper>
+                  <span>Método de pagamento</span>
+                  <SelectMethod name="method" onChange={handleForm}>
+                    <option value="credit">Crédito</option>
+                    <option value="debit">Débito</option>
+                  </SelectMethod>
 
-              <Info
-                type="text"
-                placeholder="Cidade"
-                name="city"
-                onChange={handleForm}
-                value={form.city}
-                required
-              />
-              <Info
-                type="text"
-                placeholder="Estado"
-                name="state"
-                onChange={handleForm}
-                value={form.state}
-                required
-              />
-            </FormWrapper>
-            <FormWrapper>
-              <span>Método de pagamento</span>
-              <SelectMethod name="method" onChange={handleForm}>
-                <option value="credito">Crédito</option>
-                <option value="debito">Débito</option>
-              </SelectMethod>
-
-              <Info
-                type="text"
-                placeholder="Número do cartão"
-                name="card_number"
-                onChange={handleForm}
-                value={form.card_number}
-                required
-              />
-              <Info
-                type="text"
-                placeholder="CVC"
-                name="cvc"
-                onChange={handleForm}
-                value={form.cvc}
-                required
-              />
-              <SubmitButton type="submit">Finalizar pedido</SubmitButton>
-            </FormWrapper>
-          </form>
+                  <Info
+                    type="text"
+                    placeholder="Número do cartão"
+                    name="card_number"
+                    onChange={handleForm}
+                    value={form.card_number}
+                    required
+                  />
+                  <Info
+                    type="text"
+                    placeholder="CVC"
+                    name="cvc"
+                    onChange={handleForm}
+                    value={form.cvc}
+                    required
+                  />
+                  <SubmitButton type="submit">Finalizar pedido</SubmitButton>
+                </FormWrapper>
+              </form>
+            </>
+          ) : (
+            <Unauthorized />
+          )}
         </Content>
         <MainMenu />
       </CheckoutScreenWrapper>

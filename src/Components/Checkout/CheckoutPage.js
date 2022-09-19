@@ -1,33 +1,71 @@
 import Title from "../Title/Title.js";
 import styled from "styled-components";
 import MainMenu from "../MainMenu/MainMenu.js";
+import { useEffect, useState, useContext } from "react";
+import { getOrder, getCart, handleError } from "../../services/axiosHandler.js";
+import UserContext from "../Context/UserContext";
+import Unauthorized from "../Unauthorized/Unauthorized.js";
 
 export default function CheckoutPage() {
+  const [order, setOrder] = useState({});
+  const [cart, setCart] = useState({});
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    const request = getOrder();
+    request
+      .then((res) => setOrder(res.data))
+      .catch((err) => {
+        handleError(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    const request = getCart();
+    request
+      .then((res) => setCart(res.data))
+      .catch((err) => {
+        handleError(err);
+      });
+  }, []);
+
   return (
     <>
       <Title />
       <CheckoutScreenWrapper>
         <Content>
-          <Greeting>Pedido realizado com sucesso!</Greeting>
-          <Overview>
-            <Details>
-              <span>Detalhes da entrega</span>
-              <span>Nome</span>
-              <span>Endereço - rua - numero </span>
-              <span>Bairro </span>
-              <span>Cidade</span>
-            </Details>
-            <Details>
-              <span>Forma de pagamento</span>
-              <span>Crédito</span>
-              <span>Em 3x de 29,99 </span>
-            </Details>
-            <Details>
-              <span>Resumo do pedido</span>
-              <span>Nome do produto</span>
-              <span>Total geral: R$ 89,97 </span>
-            </Details>
-          </Overview>
+          {user ? (
+            <>
+              <Greeting>Pedido realizado com sucesso!</Greeting>
+              <Overview>
+                <Details>
+                  <span>Detalhes da entrega</span>
+                  <span>Nome</span>
+                  <span>
+                    {order.address} - {order.number}{" "}
+                  </span>
+                  <span>{order.cep} </span>
+                  <span>{order.city}</span>
+                  <span>{order.state}</span>
+                </Details>
+                <Details>
+                  <span>Forma de pagamento</span>
+                  {order.method === "credit" ? (
+                    <span>Crédito</span>
+                  ) : (
+                    <span>Débito</span>
+                  )}
+                </Details>
+                <Details>
+                  <span>Resumo do pedido</span>
+                  <span>{cart.product.title}</span>
+                  <span>Total geral: R$ 89,97 </span>
+                </Details>
+              </Overview>
+            </>
+          ) : (
+            <Unauthorized />
+          )}
         </Content>
         <MainMenu />
       </CheckoutScreenWrapper>

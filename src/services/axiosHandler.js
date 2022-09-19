@@ -5,13 +5,13 @@ import LoginContext from "../Components/Context/LoginContext";
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function getHeaders() {
-  const {token} = JSON.parse(localStorage.getItem("youmarket"));
-  if(token){
-      const config = {
-          headers: {
-          Authorization: `Bearer ${token}`
-          }
-      };
+  const { token } = JSON.parse(localStorage.getItem("youmarket"));
+  if (token) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
     return config;
   }
 }
@@ -36,15 +36,36 @@ function signUp(body) {
   return promise;
 }
 
-function getProductById(productId){
-  const promise = axios.get(BASE_URL+productId);
+function getProductById(productId) {
+  const promise = axios.get(BASE_URL + productId);
   return promise;
 }
 
-function getCart(){
+function getCart() {
   const config = getHeaders();
-  const promise = axios.get(`${BASE_URL}cart`,config);
+  const promise = axios.get(`${BASE_URL}cart`, config);
   return promise;
 }
 
-export { getProducts, handleError, login, signUp, getProductById, getCart };
+function getOrder() {
+  const config = getHeaders();
+  const promise = axios.get(`${BASE_URL}order`, config);
+  return promise;
+}
+
+function postOrder(body) {
+  const config = getHeaders();
+  const promise = axios.post(`${BASE_URL}order`, config, body);
+  return promise;
+}
+
+export {
+  getProducts,
+  handleError,
+  login,
+  signUp,
+  getProductById,
+  getCart,
+  getOrder,
+  postOrder,
+};
