@@ -26,7 +26,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     const request = getCart();
     request
-      .then((res) => setCart(res.data))
+      .then((res) => setCart(res.data.product))
       .catch((err) => {
         handleError(err);
       });
@@ -61,7 +61,7 @@ export default function CheckoutPage() {
                 </Details>
                 <Details>
                   <span>Resumo do pedido</span>
-                  <span>{cart.product.title}</span>
+                  <span>{cart.title}</span>
                   <span>Total geral: {total} </span>
                 </Details>
               </Overview>
