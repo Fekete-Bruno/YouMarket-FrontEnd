@@ -9,7 +9,7 @@ import Unauthorized from "../Unauthorized/Unauthorized.js";
 
 export default function CheckoutPage() {
   const [order, setOrder] = useState({});
-  const [cart, setCart] = useState({});
+  const [cart, setCart] = useState([]);
   const { user } = useContext(UserContext);
   const location = useLocation();
   const total = location.state;
