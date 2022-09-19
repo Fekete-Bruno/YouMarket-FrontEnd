@@ -4,7 +4,6 @@ const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function getHeaders() {
   const {token} = JSON.parse(localStorage.getItem('youmarket'));
-  console.log(token);
   if(token){
       const config = {
           headers: {

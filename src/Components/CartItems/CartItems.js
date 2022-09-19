@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
-export default function CartItems({items}){
-    console.log(items);
+export default function CartItems({products}){
     return(
-        items.map((item,index)=>{return(
-        <><Item key={index}>
-                <img src={item.product.image} alt={item.product.title} />
-                <span>{item.product.title}</span>
-                <span>{item.product.price}</span>
-
-            </Item><div>amount</div></>
+        products.map((product,index)=>{return(
+        <div key={index}>
+            <Item>
+                <img src={product.image} alt={product.title} />
+                <span>{product.title}</span>
+                <span>{product.price}</span>
+            </Item> 
+        </div>
         )})
     );
 }
@@ -17,9 +17,12 @@ export default function CartItems({items}){
 const Item = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin: 1vh;
+    height: 20vh;
     img{
-        height: 10vh;
-        width: 10vh;
+        height: 15vh;
+        width: 15vh;
         object-fit: cover;
     }
     &>*{
