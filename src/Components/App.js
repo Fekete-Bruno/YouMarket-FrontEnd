@@ -16,7 +16,7 @@ export default function App() {
   const [user, setUser] = useState(null);
   const localData = JSON.parse(localStorage.getItem("youmarket"));
 
-  if(localData && !token && !user){
+  if (localData && !token && !user) {
     setToken(localData.token);
     setUser(localData.user);
   }
@@ -32,7 +32,7 @@ export default function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/finalize-order" element={<FinalizeOrderPage />} />
-            <Route path="/checkout:productId" element={<CheckoutPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/cart" element={<Cart />} />
           </Routes>
         </UserContext.Provider>
