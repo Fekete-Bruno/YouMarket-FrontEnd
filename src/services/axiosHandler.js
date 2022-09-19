@@ -1,11 +1,10 @@
 import axios from "axios";
-import { useContext } from "react";
-import LoginContext from "../Components/Context/LoginContext";
 //BASE_URL should end with "/"
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function getHeaders() {
-  const {token} = JSON.parse(localStorage.getItem("youmarket"));
+  const {token} = JSON.parse(localStorage.getItem('youmarket'));
+  console.log(token);
   if(token){
       const config = {
           headers: {
@@ -37,7 +36,7 @@ function signUp(body) {
 }
 
 function getProductById(productId){
-  const promise = axios.get(BASE_URL+productId);
+  const promise = axios.get(`${BASE_URL}product/${productId}`);
   return promise;
 }
 
@@ -47,4 +46,17 @@ function getCart(){
   return promise;
 }
 
-export { getProducts, handleError, login, signUp, getProductById, getCart };
+function postCart(product){
+  const config = getHeaders();
+  const promise = axios.post(`${BASE_URL}cart`,product,config);
+  return promise;
+}
+
+function deleteCart(_id){
+  const config = getHeaders();
+  config.headers.data = _id;
+  const promise = axios.delete(`${BASE_URL}cart`,config);
+  return promise;
+}
+
+export { getProducts, handleError, login, signUp, getProductById, getCart, postCart, deleteCart };

@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export default function CartItems({items}){
+    console.log(items);
     return(
         items.map((item,index)=>{return(
         <><Item key={index}>
-                <img src={item.image} alt={item.title} />
-                <span>{item.title}</span>
-                <span>{item.price}</span>
+                <img src={item.product.image} alt={item.product.title} />
+                <span>{item.product.title}</span>
+                <span>{item.product.price}</span>
 
             </Item><div>amount</div></>
         )})

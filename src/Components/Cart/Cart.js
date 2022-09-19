@@ -9,12 +9,7 @@ import Unauthorized from "../Unauthorized/Unauthorized";
 
 export default function Cart(){
     const [items,setItems] = useState([]);
-    const mockItems = [{ _id: "63227435ead4582bb0785d5f", selected:"1", amount: "5", price: "89.99", image: "https://mckups.com/wp-content/uploads/2020/10/Book1-scaled.jpg", title: "The gravity of Us big sale", category: "books", description: "NICE BOOK, FOUND IT IN AN ALLEY!!" },
-    { _id: "63227435ead4582bb0785d5f", selected:"1", amount: "5", price: "89.99", image: "https://mckups.com/wp-content/uploads/2020/10/Book1-scaled.jpg", title: "The gravity of Us big sale", category: "books", description: "NICE BOOK, FOUND IT IN AN ALLEY!!" },
-    { _id: "63227435ead4582bb0785d5f", selected:"1", amount: "5", price: "89.99", image: "https://mckups.com/wp-content/uploads/2020/10/Book1-scaled.jpg", title: "The gravity of Us big sale", category: "books", description: "NICE BOOK, FOUND IT IN AN ALLEY!!" },
-    { _id: "63227435ead4582bb0785d5f", selected:"1", amount: "5", price: "89.99", image: "https://mckups.com/wp-content/uploads/2020/10/Book1-scaled.jpg", title: "The gravity of Us big sale", category: "books", description: "NICE BOOK, FOUND IT IN AN ALLEY!!" },]
     const {user} = useContext(UserContext);
-    console.log(user._id);
 
     useEffect(()=>{
         const request = getCart();
@@ -31,7 +26,7 @@ export default function Cart(){
                 <CartWrapper>
                     <h1>Hello {user.name}</h1>
                     <h2>Your Cart</h2>
-                    <CartItems items={mockItems} />
+                    <CartItems items={items} />
                 </CartWrapper>
             </>:
 
