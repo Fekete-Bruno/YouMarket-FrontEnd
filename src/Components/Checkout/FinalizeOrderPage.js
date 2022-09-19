@@ -5,7 +5,7 @@ import { useState, useContext } from "react";
 import { postOrder } from "../../services/axiosHandler.js";
 import UserContext from "../Context/UserContext";
 import Unauthorized from "../Unauthorized/Unauthorized";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function FinalizeOrderPage() {
   const { user } = useContext(UserContext);
@@ -20,6 +20,8 @@ export default function FinalizeOrderPage() {
     card_number: "",
     cvc: "",
   });
+  const location = useLocation();
+  const total = location.state;
 
   function handleForm(e) {
     setForm({
@@ -34,7 +36,7 @@ export default function FinalizeOrderPage() {
     const promise = postOrder(form);
     promise
       .then((res) => {
-        navigate("/checkout");
+        navigate("/checkout", { state: total });
       })
       .catch((res) => {
         alert("Algo está errado, verifique suas informações!");

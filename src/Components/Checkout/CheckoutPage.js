@@ -2,6 +2,7 @@ import Title from "../Title/Title.js";
 import styled from "styled-components";
 import MainMenu from "../MainMenu/MainMenu.js";
 import { useEffect, useState, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import { getOrder, getCart, handleError } from "../../services/axiosHandler.js";
 import UserContext from "../Context/UserContext";
 import Unauthorized from "../Unauthorized/Unauthorized.js";
@@ -10,6 +11,8 @@ export default function CheckoutPage() {
   const [order, setOrder] = useState({});
   const [cart, setCart] = useState({});
   const { user } = useContext(UserContext);
+  const location = useLocation();
+  const total = location.state;
 
   useEffect(() => {
     const request = getOrder();
@@ -59,7 +62,7 @@ export default function CheckoutPage() {
                 <Details>
                   <span>Resumo do pedido</span>
                   <span>{cart.product.title}</span>
-                  <span>Total geral: R$ 89,97 </span>
+                  <span>Total geral: {total} </span>
                 </Details>
               </Overview>
             </>
