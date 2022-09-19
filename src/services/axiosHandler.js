@@ -34,7 +34,7 @@ function signUp(body) {
   return promise;
 }
 
-function getProductById(productId){
+function getProductById(productId) {
   const promise = axios.get(`${BASE_URL}product/${productId}`);
   return promise;
 }
@@ -45,16 +45,16 @@ function getCart() {
   return promise;
 }
 
-function postCart(product){
+function postCart(product) {
   const config = getHeaders();
-  const promise = axios.post(`${BASE_URL}cart`,product,config);
+  const promise = axios.post(`${BASE_URL}cart`, product, config);
   return promise;
 }
 
-function deleteCart(_id){
+function deleteCart(_id) {
   const config = getHeaders();
   config.headers.data = _id;
-  const promise = axios.delete(`${BASE_URL}cart`,config);
+  const promise = axios.delete(`${BASE_URL}cart`, config);
   return promise;
 }
 
@@ -64,9 +64,9 @@ function getOrder() {
   return promise;
 }
 
-function postOrder(body) {
+function postOrder(order) {
   const config = getHeaders();
-  const promise = axios.post(`${BASE_URL}order`, config, body);
+  const promise = axios.post(`${BASE_URL}order`, order, config);
   return promise;
 }
 
@@ -77,7 +77,7 @@ export {
   signUp,
   getProductById,
   getCart,
-  postCart, 
+  postCart,
   deleteCart,
   getOrder,
   postOrder,
